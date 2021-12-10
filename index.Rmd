@@ -7,7 +7,7 @@ output_dir: docs
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 
 options(shiny.maxRequestSize=30*1024^2)
 # Packages
@@ -29,9 +29,6 @@ library(ECharts2Shiny)
 
 
 ```{r, data, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
-
 
 # Step 1. load the hotspots dengue cases ####
 load("C:/Users/felip/OneDrive/proyects/hotspots/8.RData/cases_hotspots_agebs19.RData")
@@ -52,6 +49,15 @@ source("C:/Users/felip/OneDrive/proyects/hotspots/3.Functions/risk_map.R")
 
 # Step 5. load the hotspots map ####
 source("C:/Users/felip/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/hotspots_map.R")
+
+# Step 6. create the function for extract the locality ####
+extract_locality <- function(cve_edo, locality){
+    rgeomex::loc_inegi19_mx%>%
+        dplyr::filter(CVE_ENT %in% c(cve_edo)) %>%
+        dplyr::filter(NOMGEO %in% c(rgeomex::find_most_similar_string(locality, unique(NOMGEO)))) %>%
+        sf::st_make_valid()
+}
+
 
 ```
 
@@ -91,8 +97,8 @@ hotspots_map(cve_ent = "30",
              hotspots = cases_hotspots_agebs19,
              static_map = FALSE)
 
-```
 
+```
 
 ### **<span style="color:#7d9029">Papantla</span>**
 
