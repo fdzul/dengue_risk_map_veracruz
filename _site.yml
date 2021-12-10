@@ -1,0 +1,3 @@
+runtime: shiny
+name: "dengue_risk_map_veracruz"
+output_dir: docs

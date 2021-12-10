@@ -1,0 +1,359 @@
+---
+title: "Dengue Risk Maps of México"
+output: 
+  flexdashboard::flex_dashboard:
+      theme: flatly
+output_dir: docs
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+options(shiny.maxRequestSize=30*1024^2)
+# Packages
+library(formattable)
+library(tmap)
+library(rmarkdown)
+library(knitr)
+library(shiny)
+library(flexdashboard)
+library(plotly)
+library(boldenr)
+library(stringr)
+library(magrittr)
+library(leaflet)
+library(dash)
+library(ECharts2Shiny)
+
+```
+
+
+```{r, data, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+
+# Step 1. load the hotspots dengue cases ####
+load("C:/Users/felip/OneDrive/proyects/hotspots/8.RData/cases_hotspots_agebs19.RData")
+
+cases_hotspots_agebs19 <- cases_hotspots_agebs19 |> sf::st_make_valid()
+
+# Step 2 load the eggs hotspots #### 
+load("C:/Users/felip/OneDrive/proyects/hotspots/8.RData/eggs_hotspots_historic/30_veracruz/result_veracruz_zinb1.RData")
+
+# Step  load the block dataset ###
+#blocks <- rgeomex::blocks_ine20_mx_centroid |>sf::st_as_sf(coords = c("x", "y"), crs = 4326)
+
+# Step 3. load the risk_ageb function ####
+source('C:/Users/felip/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/risk_agebs.R')
+
+# Step 4. load the risk_map function ####
+source("C:/Users/felip/OneDrive/proyects/hotspots/3.Functions/risk_map.R")
+
+# Step 5. load the hotspots map ####
+source("C:/Users/felip/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/hotspots_map.R")
+
+```
+
+**Dengue Transmission Hotspots**
+=====================================  
+
+Column {.tabset}
+-------------------------------------
+
+### **<span style="color:#7d9029">Panuco</span>**
+
+```{r, hotspots_dengue_panuco, echo=FALSE}
+hotspots_map(cve_ent = "30",
+             locality = "Pánuco",
+             hotspots = cases_hotspots_agebs19,
+             static_map = FALSE)
+
+
+```
+
+### **<span style="color:#7d9029">Tuxpan</span>**
+
+```{r, hotspots_dengue_tuxpan, echo=FALSE}
+hotspots_map(cve_ent = "30",
+             locality = "Tuxpan de Rodríguez Cano",
+             hotspots = cases_hotspots_agebs19,
+             static_map = FALSE)
+
+
+```
+
+### **<span style="color:#7d9029">Poza Rica</span>**
+
+```{r, hotspots_dengue_poza_rica, echo=FALSE}
+hotspots_map(cve_ent = "30",
+             locality = "Poza Rica de Hidalgo",
+             hotspots = cases_hotspots_agebs19,
+             static_map = FALSE)
+
+```
+
+
+### **<span style="color:#7d9029">Papantla</span>**
+
+```{r, hotspots_dengue_papantla, echo=FALSE}
+hotspots_map(cve_ent = "30",
+             locality = "Papantla de Olearte",
+             hotspots = cases_hotspots_agebs19,
+             static_map = FALSE)
+
+```
+
+### **<span style="color:#7d9029">Martínez de la Torre</span>**
+
+```{r, hotspots_dengue_martinez, echo=FALSE}
+hotspots_map(cve_ent = "30",
+             locality = "Martínez de la Torre",
+             hotspots = cases_hotspots_agebs19,
+             static_map = FALSE)
+
+```
+
+
+### **<span style="color:#7d9029">Xalapa</span>**
+
+```{r, hotspots_dengue_xalapa, echo=FALSE}
+hotspots_map(cve_ent = "30",
+             locality = "Xalapa de Enríquez",
+             hotspots = cases_hotspots_agebs19,
+             static_map = TRUE)
+
+```
+
+
+### **<span style="color:#7d9029">Córdoba</span>**
+
+```{r, hotspots_dengue_cordoba, echo=FALSE}
+hotspots_map(cve_ent = "30",
+             locality = "Córdoba",
+             hotspots = cases_hotspots_agebs19,
+             static_map = FALSE)
+
+```
+
+### **<span style="color:#7d9029">Orizaba</span>**
+
+```{r, hotspots_dengue_orizaba, echo=FALSE}
+hotspots_map(cve_ent = "30",
+             locality = "Orizaba",
+             hotspots = cases_hotspots_agebs19,
+             static_map = FALSE)
+
+```
+
+### **<span style="color:#7d9029">Veracruz</span>**
+```{r, hotspots_dengue_veracruz, echo=FALSE}
+hotspots_map(cve_ent = "30",
+             locality = "Veracruz",
+             hotspots = cases_hotspots_agebs19,
+             static_map = FALSE)
+
+```
+
+### **<span style="color:#7d9029">Cosomaloapan</span>**
+
+```{r, hotspots_dengue_cosamaloapan, echo=FALSE}
+hotspots_map(cve_ent = "30",
+             locality = "Cosamaloapan",
+             hotspots = cases_hotspots_agebs19,
+             static_map = FALSE)
+
+```
+### **<span style="color:#7d9029">San Andres Tuxtla</span>**
+
+```{r, hotspots_dengue_san_andres, echo=FALSE}
+hotspots_map(cve_ent = "30",
+             locality = "San Andres Tuxtla",
+             hotspots = cases_hotspots_agebs19,
+             static_map = FALSE)
+
+```
+### **<span style="color:#7d9029">Coatzacoalcos</span>**
+
+```{r, hotspots_dengue_coatzacoalcos, echo=FALSE}
+hotspots_map(cve_ent = "30",
+             locality = "Coatzacoalcos",
+             hotspots = cases_hotspots_agebs19,
+             static_map = FALSE)
+
+```
+### **<span style="color:#7d9029">Minatitlán</span>**
+
+```{r, hotspots_dengue_minatitlan, echo=FALSE}
+hotspots_map(cve_ent = "30",
+             locality = "Minatitán",
+             hotspots = cases_hotspots_agebs19,
+             static_map = FALSE)
+
+```
+
+
+**Vector Hotspots**
+=====================================  
+
+
+Column {.tabset}
+-------------------------------------
+
+
+### **<span style="color:#7d9029">Eggs</span>**
+
+### **<span style="color:#7d9029">Adult</span>**
+
+
+**Dengue Risk Maps**
+=====================================  
+
+Column {.tabset}
+-------------------------------------
+
+### **<span style="color:#7d9029">Tuxpan</span>**
+
+```{r, risk_map_panuco, echo=FALSE}
+risk <- risk_agebs(spde_model = spde_eggs_panuco_zinb1,
+                          hotspots = cases_hotspots_agebs19,
+                          locality = "Pánuco",
+                          cve_ent = "30",
+                          intensity_perc = 25)
+risk_map(risk = risk, staticmap = FALSE)
+```
+
+### **<span style="color:#7d9029">Tuxpan</span>**
+### **<span style="color:#7d9029">Poza Rica</span>**
+
+```{r, risk_map_poza_rica, echo=FALSE}
+risk <- risk_agebs(spde_model = spde_eggs_pozarica_zinb1,
+                          hotspots = cases_hotspots_agebs19,
+                          locality = "Poza Rica de Hidalgo",
+                          cve_ent = "30",
+                          intensity_perc = 25)
+risk_map(risk = risk, staticmap = FALSE)
+```
+
+
+### **<span style="color:#7d9029">Papantla</span>**
+
+```{r,  risk_map_papantla, echo=FALSE}
+
+```
+
+### **<span style="color:#7d9029">Martínez de la Torre</span>**
+
+```{r, risk_map_martinez, echo=FALSE}
+risk <- risk_agebs(spde_model = spde_eggs_martinez_zinb1,
+                        hotspots = cases_hotspots_agebs19,
+                        locality = "Martínes de la Torre",
+                        cve_ent = "30",
+                        intensity_perc = 25)
+
+risk_map(risk = risk, staticmap = FALSE)
+```
+
+
+### **<span style="color:#7d9029">Xalapa</span>**
+
+```{r, risk_map_xalapa, echo=FALSE}
+
+```
+
+
+### **<span style="color:#7d9029">Córdoba</span>**
+
+```{r, risk_map_cordoba, echo=FALSE}
+risk <- risk_agebs(spde_model = spde_eggs_cordoba_zinb1,
+                        hotspots = cases_hotspots_agebs19,
+                        locality = "Córdoba",
+                        cve_ent = "30",
+                        intensity_perc = 25)
+
+risk_map(risk = risk, staticmap = FALSE)
+```
+
+### **<span style="color:#7d9029">Orizaba</span>**
+
+
+```{r, risk_map_orizaba, echo=FALSE}
+risk <- risk_agebs(spde_model = spde_eggs_orizaba_zinb1,
+                        hotspots = cases_hotspots_agebs19,
+                        locality = "Orizaba",
+                        cve_ent = "30",
+                        intensity_perc = 25)
+
+risk_map(risk = risk, staticmap = FALSE)
+```
+
+### **<span style="color:#7d9029">Veracruz</span>**
+
+```{r, risk_map_veracruz, echo=FALSE}
+risk <- risk_agebs(spde_model = spde_eggs_veracruz_zinb1,
+                        hotspots = cases_hotspots_agebs19,
+                        locality = "Veracruz",
+                        cve_ent = "30",
+                        intensity_perc = 25)
+
+risk_map(risk = risk, staticmap = FALSE)
+```
+
+### **<span style="color:#7d9029">Cosomaloapan</span>**
+
+
+```{r, risk_map_cosomaloapan, echo=FALSE}
+risk <- risk_agebs(spde_model = spde_eggs_cosamaloapan_zinb1,
+                        hotspots = cases_hotspots_agebs19,
+                        locality = "Cosoamaloapan",
+                        cve_ent = "30",
+                        intensity_perc = 25)
+
+risk_map(risk = risk, staticmap = FALSE)
+```
+
+### **<span style="color:#7d9029">San Andres Tuxtla</span>**
+
+
+```{r, risk_map_san_andres, echo=FALSE}
+risk <- risk_agebs(spde_model = spde_eggs_san_andres_zinb1,
+                        hotspots = cases_hotspots_agebs19,
+                        locality = "San Andres Tuxtla",
+                        cve_ent = "30",
+                        intensity_perc = 25)
+
+risk_map(risk = risk, staticmap = FALSE)
+
+```
+
+### **<span style="color:#7d9029">Coatzacoalcos</span>**
+
+```{r, risk_map_coatzacoalcos, echo=FALSE}
+risk <- risk_agebs(spde_model = spde_eggs_coatzacoalcos_zinb1,
+                        hotspots = cases_hotspots_agebs19,
+                        locality = "Coatzacoalcos",
+                        cve_ent = "30",
+                        intensity_perc = 25)
+
+risk_map(risk = risk, staticmap = FALSE)
+```
+### **<span style="color:#7d9029">Minatitlán</span>**
+
+```{r, risk_map_minatitlan, echo=FALSE}
+risk <- risk_agebs(spde_model = spde_eggs_minatitlan_zinb1,
+                        hotspots = cases_hotspots_agebs19,
+                        locality = "Minatitlán",
+                        cve_ent = "30",
+                        intensity_perc = 25)
+
+risk_map(risk = risk, staticmap = FALSE)
+```
+
+
+
+
+**Transmission Chains**
+===================================== 
+
+
+
