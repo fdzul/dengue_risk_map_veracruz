@@ -31,8 +31,8 @@ library(ECharts2Shiny)
 ```{r, data, include=FALSE}
 
 # Step 1. load the hotspots dengue cases ####
-load("C:/Users/felip/OneDrive/proyects/hotspots/8.RData/cases_hotspots_agebs19.RData")
-
+#load("C:/Users/felip/OneDrive/proyects/hotspots/8.RData/cases_hotspots_agebs19.RData")
+load("C:/Users/felip/Dropbox/hotspots_2021/8.RData/cases_hotspots_agebs19.RData")
 cases_hotspots_agebs19 <- cases_hotspots_agebs19 |> sf::st_make_valid()
 
 # Step 2 load the eggs hotspots #### 
@@ -805,7 +805,7 @@ flexdashboard::gauge(round((sum(y_hot$n_cases)/sum(y$n_cases))*100, digits = 1),
 hotspots_map(cve_ent = "30",
              locality = "Xalapa de Enríquez",
              hotspots = cases_hotspots_agebs19,
-             static_map = TRUE)
+             static_map = FALSE)
 
 ```
 
@@ -1521,7 +1521,7 @@ flexdashboard::gauge(round((sum(y_hot$n_cases)/sum(y$n_cases))*100, digits = 1),
                    colors = c("success", "warning","danger"))
       )
 ```
-  </div>
+</div>
 </div>
 </body>
 </html>
