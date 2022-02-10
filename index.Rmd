@@ -316,7 +316,7 @@ body {
   <div class="box a">
 ```{r hotspots_dengue_pozarica}
 hotspots_map(cve_ent = "30",
-             locality = "Poza Rica de Hidalgo",
+             locality = c("Poza Rica de Hidalgo", "Coatzintla"),
              hotspots = cases_hotspots_agebs19,
              static_map = FALSE)
 
@@ -676,7 +676,7 @@ body {
   <div class="box a">
 ```{r hotspots_dengue_mtz}
 hotspots_map(cve_ent = "30",
-             locality = "Martínez de la Torre",
+             locality = c("Martínez de la Torre", "Independencia"),
              hotspots = cases_hotspots_agebs19,
              static_map = FALSE)
 
@@ -1592,7 +1592,7 @@ risk_map(risk = risk, staticmap = FALSE)
 ```{r, risk_map_poza_rica, echo=FALSE}
 risk <- risk_agebs(spde_model = spde_eggs_pozarica_zinb1,
                           hotspots = cases_hotspots_agebs19,
-                          locality = "Poza Rica de Hidalgo",
+                          locality = c("Poza Rica de Hidalgo", "Coatzintla"),
                           cve_ent = "30",
                           intensity_perc = 25)
 risk_map(risk = risk, staticmap = FALSE)
